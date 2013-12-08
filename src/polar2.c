@@ -1,10 +1,17 @@
 #include <pebble.h>
 
-#define SHOW_SECONDS
+/*
+ Polar Clock watchapp for Pebble SDK2
+ 
+ Based on work by http://github.com/op12 who is better at maths than me
+*/
 
 #define MINUTE_RADIUS 55
 #define HOUR_RADIUS 45
 #define SECOND_RADIUS 65
+
+// enable this for 24h hour mode
+//define TWENTY_FOUR_HOUR_DIAL
 
 static Window *window;
 
@@ -17,7 +24,7 @@ static const GPathInfo SECOND_SEGMENT_PATH_POINTS = {
     .num_points = 3,
     .points = (GPoint []) {
         {0, 0},
-        {-7, -70}, // 70 = radius + fudge; 7 = 70*tan(6 degrees); 6 degrees per minute;
+        {-7, -70}, // 70 = radius + fudge; 7 = 70*tan(6 degrees)
         {7,  -70},
     }
 };
@@ -26,7 +33,7 @@ static const GPathInfo MINUTE_SEGMENT_PATH_POINTS = {
     .num_points = 3,
     .points = (GPoint []) {
         {0, 0},
-        {-6, -58}, // 58 = radius + fudge; 6 = 58*tan(6 degrees); 30 degrees per hour;
+        {-6, -58}, // 58 = radius + fudge; 6 = 58*tan(6 degrees)
         {6,  -58},
     }
 };
@@ -35,7 +42,7 @@ static const GPathInfo HOUR_SEGMENT_PATH_POINTS = {
     .num_points = 3,
     .points = (GPoint []) {
         {0, 0},
-        {-5, -48}, // 48 = radius + fudge; 5 = 48*tan(6 degrees); 6 degrees per second;
+        {-5, -48}, // 48 = radius + fudge; 5 = 48*tan(6 degrees)
         {5,  -48},
     }
 };
